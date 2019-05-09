@@ -1,3 +1,0 @@
-class SemArquivoException extends Exception {
-
-}

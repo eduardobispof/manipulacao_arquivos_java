@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Produto",
+            "request": "launch",
+            "mainClass": "Produto",
+            "projectName": "manipulacao_arquivos_java_91791165"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "manipulacao_arquivos_java_91791165"
+        }
+    ]
+}

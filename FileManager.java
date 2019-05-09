@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileManager {
     FileReader arquivo;
@@ -49,19 +51,53 @@ public class FileManager {
         this.linha = getArquivoBuffer().readLine();
     }
 
-    public static void main(String[] args) {
-        try {
-            FileManager teste = new FileManager();
-            teste.setArquivo();
-            teste.setArquivoBuffer(teste.getArquivo());
-            teste.setLinha(teste.getArquivoBuffer());
+    public void listarProdutos(Estoque estoque, BufferedReader lista) throws IOException {
 
-        } catch (IOException e) {
-            System.out.println(e);
-        } finally {
-            System.out.println("Fim do programa");
+        // contador para somar o valor total dos cprodutos
+        double precoTotal = 0;
+
+        // valor para somar a quantidade em estoque dos produtos
+        int quantidadeTotal = 0;
+
+        // contador para somar o numero de produtos cadastrados
+        int quantidadeProdutos = 0;
+
+        estoque.produtos = new ArrayList<Produto>();
+
+        String linhas = lista.readLine();
+
+        while ((linhas = lista.readLine()) != null) {
+            // separa a linhas com o delimitador ';' e transforma em um array onde cada
+            // coluna vida um elemento
+            String pedacos[] = linhas.split(";");
+
+            // converte o indice 3 do array (estoque) de string para inteiro
+            int convertQuantidade = Integer.parseInt(pedacos[3]);
+
+            // converte o indice 2 do array (preco) de string para double
+            double convertPreco = Double.parseDouble(pedacos[2]);
+
+            // a cada vez que o laco é executado o atributo recebe o valor dele mais o valor
+            // do produto atual
+
+            // recebe e soma o valor dos preços para calcular a média
+            precoTotal += convertPreco;
+
+            // recebe e soma o valor em estoque de cada produto
+            quantidadeTotal += convertQuantidade;
+
+            // conta o numero de produtos cadastrados
+            quantidadeProdutos++;
+
+            Produto prod = new Produto(pedacos[0], pedacos[1], convertPreco, convertQuantidade);
+
+            // adiciona os produtos ao atributo produtos
+            estoque.produtos.add(prod);
+
+            estoque.setQuantidadeGeral(quantidadeTotal);
+
+            estoque.setPrecoMedio(quantidadeProdutos, precoTotal);
         }
-        System.out.println("OK");
+        System.out.println(quantidadeProdutos);
     }
-
 }
